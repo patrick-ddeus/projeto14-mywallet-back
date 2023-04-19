@@ -58,9 +58,23 @@ export const validLogin = async (req, res, next) => {
         }
 
         req.user = User;
-        
+
         return next();
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
+};
+
+export const validTransaction = (req, res, next) => {
+    const { valor, descricao } = req.body;
+
+    if (!valor) {
+        return res.status(422).json({ message: "Campo Valor inválido, por favor preencha todos os campos corretamente" });
+    }
+
+    if (!descricao) {
+        return res.status(422).json({ message: "Campo descricao inválido, por favor preencha todos os campos corretamente" });
+    }
+
+    return next()
 };
