@@ -1,15 +1,15 @@
 import express from "express";
 import "dotenv/config";
 import ConnectDatabase from "./database/connect.js";
-import SignUpRouter from "./routes/signup.route.js";
-import SignInRouter from "./routes/signin.route.js";
+import AuthRouter from "./routes/auth.route.js";
+import TransactionsRouter from "./routes/bank.route.js";
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded());
-app.use("/register", SignUpRouter)
-app.use("/", SignInRouter)
+app.use("/auth", AuthRouter)
+app.use("/bank", TransactionsRouter)
 
 ConnectDatabase()
 app.listen(process.env.PORT, () => console.log(`
