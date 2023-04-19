@@ -48,13 +48,13 @@ export const validLogin = async (req, res, next) => {
         const User = await UserService.findOneService({ email: email });
 
         if (!User) {
-            return res.status(404).json({ message: "Email inválido. Verifique suas informações e tente novamente." });
+            return res.status(404).json({ message: "Email não cadastrado. Verifique suas informações e tente novamente." });
         }
 
         const isValidPassword = await bcrypt.compare(password, User.password);
 
         if (!isValidPassword) {
-            return res.status(401).json({ message: "Senha inválida. Verifique suas informações e tente novamente." });
+            return res.status(401).json({ message: "Senha não cadastrada. Verifique suas informações e tente novamente." });
         }
 
         req.user = User;

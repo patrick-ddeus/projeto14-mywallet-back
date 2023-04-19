@@ -2,22 +2,23 @@ import { v4 as uuidv4 } from "uuid";
 import SessionService from "../services/session.service.js";
 import BankService from "../services/bank.service.js";
 import bcrypt from "bcrypt";
+import UserService from "../services/user.service.js";
 
 const login = async (req, res) => {
-    const UserinDb = req.user;
+    const { _id, name } = req.user;
 
     try {
         const token = uuidv4();
 
         SessionService.createUserSession({
             createdAt: new Date(),
-            userId: UserinDb._id,
+            userId: _id,
             token
         });
 
         res.status(201).json({
             token,
-            name: UserinDb.name,
+            name: name,
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
