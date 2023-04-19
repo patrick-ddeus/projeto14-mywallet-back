@@ -5,9 +5,18 @@ const deposit = async (req, res) => {
     const id = req.id;
 
     try {
-        const transaction = { type: "deposito", balance: valor, description: descricao, date: new Date() };
+        const transaction = {
+            type: "deposito",
+            balance: valor,
+            description: descricao,
+            date: new Date()
+        };
 
-        await BankService.updateAccount({ userId: id }, { $push: { transactions: transaction } });
+        await BankService.updateAccount(
+            { userId: id },
+            {
+                $push: { transactions: transaction }
+            });
 
         res.status(201).json({ message: "Depósito realizado com sucesso!" });
     } catch (error) {
@@ -15,6 +24,32 @@ const deposit = async (req, res) => {
     }
 };
 
+const withdraw = async (req, res) => {
+    const { valor, descricao } = req.body;
+    const id = req.id;
+
+    try {
+        const transaction = {
+            type: "retirada",
+            balance: valor,
+            description: descricao,
+            date: new Date()
+        };
+
+        await BankService.updateAccount(
+            { userId: id },
+            {
+                $push: { transactions: transaction }
+            }
+        );
+
+        res.status(201).json({ message: "Retirada realizada com sucesso!" });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 export default {
-    deposit
+    deposit,
+    withdraw
 };
