@@ -17,7 +17,7 @@ const authMiddleware = async (req, res, next) => {
         const tokens = await SessionService.findUserSession({ token });
 
         if (tokens.length === 0) {
-            return res.status(401).json({ message: "Token Expirado!" });
+            return res.status(401).json({ message: "Token Inválido!" });
         }
 
         req.id = tokens[0].userId;

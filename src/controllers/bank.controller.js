@@ -49,7 +49,18 @@ const withdraw = async (req, res) => {
     }
 };
 
+const getTransactions = async (req, res) => {
+    const id = req.id;
+    try {
+        const UserBankAccount = await BankService.findAccount({ userId: id });
+        res.status(201).json(UserBankAccount.transactions);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 export default {
     deposit,
-    withdraw
+    withdraw,
+    getTransactions
 };

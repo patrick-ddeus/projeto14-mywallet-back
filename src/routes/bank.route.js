@@ -5,7 +5,7 @@ import { validTransaction } from "../middlewares/global.middlewares.js";
 
 const BankRouter = Router();
 
+BankRouter.get('/transaction', AuthMiddleware, BankController.getTransactions)
 BankRouter.post('/transaction/deposit', AuthMiddleware, validTransaction, BankController.deposit);
 BankRouter.post('/transaction/withdraw', AuthMiddleware, validTransaction, BankController.withdraw);
-
 export default BankRouter;

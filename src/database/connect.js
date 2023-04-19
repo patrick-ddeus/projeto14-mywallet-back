@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb";
 import "dotenv/config";
 
-const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true });
+const client = new MongoClient(process.env.DATABASE_URL, { useNewUrlParser: true });
 
 const ConnectDatabase = () => {
     client.connect().then(() => {
