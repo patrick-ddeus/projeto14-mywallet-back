@@ -15,7 +15,7 @@ const deposit = async (req, res) => {
         await BankService.updateAccount(
             { userId: id },
             {
-                $push: { transactions: transaction }
+                $push: { transactions: { $each: [transaction], $position: 0 } }
             });
 
         res.status(201).json({ message: "Depósito realizado com sucesso!" });
@@ -39,7 +39,7 @@ const withdraw = async (req, res) => {
         await BankService.updateAccount(
             { userId: id },
             {
-                $push: { transactions: transaction }
+                $push: { transactions: { $each: [transaction], $position: 0 } }
             }
         );
 
