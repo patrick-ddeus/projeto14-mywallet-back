@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import BankService from "../services/bank.service.js";
 
 const deposit = async (req, res) => {
@@ -6,6 +7,7 @@ const deposit = async (req, res) => {
 
     try {
         const transaction = {
+            _id: new ObjectId(),
             type: "deposito",
             balance: valor,
             description: descricao,
@@ -30,6 +32,7 @@ const withdraw = async (req, res) => {
 
     try {
         const transaction = {
+            _id: new ObjectId(),
             type: "retirada",
             balance: valor,
             description: descricao,
@@ -42,7 +45,7 @@ const withdraw = async (req, res) => {
                 $push: { transactions: { $each: [transaction], $position: 0 } }
             }
         );
-
+            
         res.status(201).json({ message: "Retirada realizada com sucesso!" });
     } catch (error) {
         res.status(500).json({ error: error.message });
