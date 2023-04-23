@@ -9,7 +9,7 @@ const deposit = async (req, res) => {
         const transaction = {
             _id: new ObjectId(),
             type: "deposito",
-            balance: valor,
+            amount: valor,
             description: descricao,
             date: new Date()
         };
@@ -34,7 +34,7 @@ const withdraw = async (req, res) => {
         const transaction = {
             _id: new ObjectId(),
             type: "retirada",
-            balance: valor,
+            amount: valor,
             description: descricao,
             date: new Date()
         };
